@@ -8,5 +8,23 @@ package com.example.controller;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
+    //Controller endpoints
 
+    //Register endpoint
+    //Login endpoint
+    //Get all messages endpoint
+    //Create message endpoint
+    //Get message by id endpoint
+    //Update message by id endpoint
+    //Delete message by id endpoint
+
+    //Controller handlers
+
+    //Register handler
+    //Login handler
+    //Get all messages handler
+    //Create message handler
+    //Get message by id handler
+    //Update message by id handler
+    //Delete message by id handler
 }
