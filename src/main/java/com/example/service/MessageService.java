@@ -36,15 +36,20 @@ public class MessageService {
     }
 
     public int updateMessageById(int message_id, Message message){
-        Optional<Message> updatedMessage = messageRepository.findById(message_id);
-        if (updatedMessage.isPresent() && message.getMessage_text() != "") 
+        Optional<Message> optionalMessage = messageRepository.findById(message_id);
+        if (optionalMessage.isPresent() && message.getMessage_text() != "") {
+            Message updatedMessage = optionalMessage.get();
+            updatedMessage.setMessage_text(message.getMessage_text());
+            messageRepository.save(updatedMessage);
             return 1;
+            }
             else return 0;
     }
 
     public int deleteMessageById(int message_id){
         Optional<Message> message = messageRepository.findById(message_id);
         if (message.isPresent()){
+            messageRepository.deleteById(message_id);
             return 1;
         }else return 0;
     }
