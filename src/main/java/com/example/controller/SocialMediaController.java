@@ -32,11 +32,6 @@ public class SocialMediaController {
     @Autowired
     MessageService messageService;
 
-    // public SocialMediaController(){
-    //     this.accountService = new AccountService();
-    //     this.messageService = new MessageService();
-    // }
-
     // public void startAPI (){
     //     //Controller endpoints
         
@@ -70,33 +65,24 @@ public class SocialMediaController {
     // }
 
     //Controller handlers below
-    // template @PathVariable("a_id") int userid,@RequestBody Associate associate
-    //Register handler
+
     @PostMapping("/register")
     private Account registerHandler(@RequestBody Account user){
-        // ObjectMapper mapper = new ObjectMapper();
-        // Account user = mapper.readValue(ctx.body(), Account.class);
         Account addedUser = accountService.addUser(user);
         if(addedUser!=null){
             return addedUser;
-            // ctx.json(addedUser);
         }else{
             return null;
-            // ctx.status(400);
         }
     }
     //Login handler
     @PostMapping("/login")
     private Account loginHandler(@RequestBody Account user){
-        // ObjectMapper mapper = new ObjectMapper();
-        // Account User = mapper.readValue(ctx.body(), Account.class);
         Account loggedUser = accountService.loginUser(user);
         if(loggedUser!=null) {
             return loggedUser;
-            // ctx.json(loggedUser);
         } else {
             return null;
-            // ctx.status(400);
         }
     }
     //Get all messages handler
@@ -104,70 +90,48 @@ public class SocialMediaController {
     private List <Message> getAllMessagesHandler(){
         List <Message> messages = messageService.getAllMessages();
         return messages;
-        // ctx.json(messages);
     }
     //Get message by id handler
     @GetMapping("/messages/{message_id}")
     private Message getMessageByIdHandler(@PathVariable("message_id") int message_id){
-        // String id = ctx.pathParam("message_id");
-        // int message_id = Integer.valueOf(id);
         Message message = messageService.getMessageById(message_id);
         return message;
-        // ctx.json(message);
     }
     //Create message handler
     @PostMapping("/messages")
     private Message createMessageHandler(@RequestBody Message message){
-        // ObjectMapper mapper = new ObjectMapper();
-        // Message message = mapper.readValue(ctx.body(), Message.class);
         Message addedMessage = messageService.addMessage(message);
         if (addedMessage !=null) {
             return addedMessage;
-            // ctx.json(addedMessage);
         } else {
             return null;
-            // ctx.status(400);
         }
     }
     //Update message by id handler
     @PatchMapping("/messages/{message_id}")
-    private Message updateMessageByIdHandler(@PathVariable("message_id") int message_id, @RequestBody Message message){
-        // ObjectMapper mapper = new ObjectMapper();
-        // Message message = mapper.readValue(ctx.body(), Message.class);
-        // String id = ctx.pathParam("message_id");
-        // int message_id = Integer.valueOf(id);
-        Message updatedMessage = messageService.updateMessageById(message_id, message);
-        if (updatedMessage != null) {
-            return updatedMessage;
-            // ctx.json(updatedMessage);
+    private int updateMessageByIdHandler(@PathVariable("message_id") int message_id, @RequestBody Message message){
+        int updatedMessage = messageService.updateMessageById(message_id, message);
+        if (updatedMessage > 0) {
+            return 1;
         } else {
-            return null;
-            // ctx.status(400);
+            return 0;
         }
 
     }
     //Delete message by id handler
     @DeleteMapping("/messages/{message_id}")
     private int deleteMessageByIdHandler(@PathVariable("message_id") int message_id){
-        // String id = ctx.pathParam("message_id");
-        // int message_id = Integer.valueOf(id);
         int deleted = messageService.deleteMessageById(message_id);
         if (deleted != 0 ) {
             return deleted;
-            // ctx.json(deleted);
         } else {
             return 0;
-                // ctx.json("");
-                // ctx.status(200);
             }        
     }
     //Get messages by account id handler
     @GetMapping("/accounts/{account_id}/messages")
     private List<Message> getMessagesByAccountIdHandler(@PathVariable("account_id") int account_id){
-        // String id = ctx.pathParam("account_id");
-        // int account_id = Integer.valueOf(id);
         List<Message> messages = messageService.getMessagesByAccountId(account_id);
         return messages;
-        // ctx.json(messages);
     }
 }

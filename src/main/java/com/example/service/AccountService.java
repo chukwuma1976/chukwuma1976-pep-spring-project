@@ -1,22 +1,28 @@
 package com.example.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.entity.Account;
+import com.example.repository.AccountRepository;
 
+@Service
 public class AccountService {
+    
+    @Autowired
+    AccountRepository accountRepository;
 
-    // public AccountDAO accountDAO;
-
-    // public AccountService(){
-    //     this.accountDAO =  = new AccountDAO(); 
-    // }
+    public AccountService(AccountRepository accountRepository ){
+        this.accountRepository = accountRepository;
+    }
     
     public Account addUser(Account user){
-        // return accountDAO.addUser;
-        return user;
+        if (user.getPassword().length() > 4)
+            return accountRepository.save(user);
+            else return null;
     }
 
     public Account loginUser(Account user){
-        // return loginDAO.loginuser
-        return user;
+        return accountRepository.loginUser(user.getUsername(), user.getPassword());
     }
 }
