@@ -37,7 +37,7 @@ public class MessageService {
 
     public int updateMessageById(int message_id, Message message){
         Optional<Message> optionalMessage = messageRepository.findById(message_id);
-        if (optionalMessage.isPresent() && message.getMessage_text() != "") {
+        if (optionalMessage.isPresent() && message.getMessage_text() != "" && message.getMessage_text().length() < 255) {
             Message updatedMessage = optionalMessage.get();
             updatedMessage.setMessage_text(message.getMessage_text());
             messageRepository.save(updatedMessage);
