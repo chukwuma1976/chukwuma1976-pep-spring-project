@@ -17,7 +17,8 @@ public class AccountService {
     }
     
     public Account addUser(Account user){
-        if (user.getPassword().length() >= 4)
+        Account userFound = accountRepository.findAccountByUsername(user.getUsername());
+        if (user.getPassword().length() >= 4 && user.getUsername() != "" && userFound == null)
             return accountRepository.save(user);
             else return null;
     }

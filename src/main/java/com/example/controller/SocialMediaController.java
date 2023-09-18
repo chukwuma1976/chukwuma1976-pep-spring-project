@@ -77,7 +77,7 @@ public class SocialMediaController {
         if (addedMessage !=null) {
             return ResponseEntity.status(200).body(addedMessage);
         } else {
-            return null;
+            return ResponseEntity.status(400).body(addedMessage);
         }
     }
     //Update message by id endpoint and handler

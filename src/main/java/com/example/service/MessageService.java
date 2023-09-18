@@ -1,6 +1,8 @@
 package com.example.service;
 
+import com.example.entity.Account;
 import com.example.entity.Message;
+import com.example.repository.AccountRepository;
 import com.example.repository.MessageRepository;
 
 import java.util.*;
@@ -13,9 +15,12 @@ public class MessageService {
     
     @Autowired
     MessageRepository messageRepository;
+    @Autowired
+    AccountRepository accountRepository;
 
-    public MessageService(MessageRepository messageRepository){
+    public MessageService(MessageRepository messageRepository, AccountRepository accountRepository){
         this.messageRepository = messageRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Message> getAllMessages(){
@@ -30,7 +35,8 @@ public class MessageService {
     }
 
     public Message addMessage(Message message){
-        if (message.getMessage_text() != ""){
+        Optional<Account> user = accountRepository.findById(message.getPosted_by());
+        if (message.getMessage_text() != "" && user.isPresent()){
             return messageRepository.save(message);
         } else return null;
     }
